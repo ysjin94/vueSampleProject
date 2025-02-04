@@ -1,5 +1,12 @@
 <script setup>
 
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter();
+
+  const goPage = () => {
+    router.push('/posts/create');
+  }
 </script>
 
 <template>
@@ -14,12 +21,18 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <RouterLink class= "nav-link active" to="/"> Home</RouterLink>
+                <RouterLink class= "nav-link"  active-class="active" to="/"> Home</RouterLink>
               </li>
               <li class="nav-item">
-                <RouterLink class= "nav-link active" to="/about"> About</RouterLink>
+                <RouterLink class= "nav-link" active-class="active" to="/about"> About</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink class= "nav-link" active-class="active" to="/posts"> Post </RouterLink>
               </li>
             </ul>
+            <div class="d-flex">
+              <button class="btn btn-outline-light" type="button" @click="goPage" > Post </button>
+            </div>
           </div>
         </div>
       </nav>

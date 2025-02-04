@@ -1,6 +1,8 @@
 <template>
+  <div>
   <TheHeader></TheHeader>
   <TheView></TheView>
+  </div>
 </template>
 
 <script setup>
