@@ -1,25 +1,37 @@
 <script setup>
 
 import { useRoute, useRouter } from 'vue-router'
+import { getPostById } from '@/api/post.js'
+import { ref } from 'vue'
 
 const router = useRouter();
-const route = useRoute();
-const id = route.params.id;
+//const route = useRoute();
+//const id = route.params.id;
+
+const props = defineProps({
+  id: Number
+});
 
 const goListPage = () => {
   router.push({name: 'PostList'});
 }
 
 const goEditPage = () => {
-  router.push({name: 'PostEdit', params: {id}});
+  router.push({name: 'PostEdit', params:{id : props.id}});
 }
 
+const form =ref({});
+const fetchPost = () =>{
+  const data = getPostById(props.id);
+  form.value = data;
+}
+fetchPost();
 </script>
 
 <template>
   <div>
-    <h2>Title</h2>
-    <p>Contents</p>
+    <h2>{{ form.title }}</h2>
+    <p>{{form.content}}</p>
     <p class="text-muted">2025-01-01</p>
     <hr class="my-4"/>
     <div class="row g-2">

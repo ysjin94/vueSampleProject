@@ -3,6 +3,7 @@ import PostItem from '@/components/posts/PostItem.vue'
 import { ref } from 'vue'
 import { getPosts } from '@/api/post.js'
 import { useRouter } from 'vue-router'
+import PostDetailView from '@/views/posts/PostDetailView.vue'
 
 const posts = ref([]);
 const fetchPosts = () => {
@@ -29,9 +30,10 @@ const goPage = (id) =>{
     <div class="row">
       <div v-for="post in posts" :key="post.id" class="col-4">
         <PostItem :title="post.title" :contents="post.content" :create-at="post.createAt" @click="goPage(post.id)"></PostItem>
-
       </div>
     </div>
+    <hr class="my-4"/>
+    <PostDetailView :id="1"></PostDetailView>
   </div>
 
 </template>
