@@ -1,7 +1,7 @@
 <script setup>
 
 import { useRoute, useRouter } from 'vue-router'
-import { getPostById } from '@/api/post.js'
+import { deletePost, getPostById } from '@/api/post.js'
 import { ref } from 'vue'
 
 const router = useRouter();
@@ -20,18 +20,49 @@ const goEditPage = () => {
   router.push({name: 'PostEdit', params:{id : props.id}});
 }
 
-const form =ref({});
-const fetchPost = () =>{
-  const data = getPostById(props.id);
-  form.value = data;
+const post =ref({});
+
+// const fetchPost = () =>{
+//   const data = getPostById(props.id);
+//   form.value = data;
+// }
+
+const fetchPost = async () =>{
+  try{
+    const {data} = await getPostById(props.id);
+    setPost(data.title,data.content,data.createAt);
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const setPost = (title, content, creatAt) =>{
+  post.value = {
+    title:title,
+    content: content,
+    creatAt: creatAt,
+  }
 }
 fetchPost();
+
+const remove = async () =>{
+  try{
+    if(confirm('Are you sure you want to delete this post?') === false){
+      return;
+    }
+    await deletePost(props.id);
+    router.push({name: 'PostList'});
+
+  }catch(error){
+    console.error(error);
+  }
+}
 </script>
 
 <template>
   <div>
-    <h2>{{ form.title }}</h2>
-    <p>{{form.content}}</p>
+    <h2>{{ post.title }}</h2>
+    <p>{{post.content}}</p>
     <p class="text-muted">2025-01-01</p>
     <hr class="my-4"/>
     <div class="row g-2">
@@ -51,7 +82,7 @@ fetchPost();
       <div class="col-auto">
         <button class="btn btn-outline-primary" @click="goEditPage">Edit </button>
       </div>
-      <div class="col-auto">
+      <div class="col-auto" @click="remove">
         <button class="btn btn-outline-danger">Delete</button>
       </div>
     </div>

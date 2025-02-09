@@ -4,7 +4,7 @@
       type: String,
       required: true,
     },
-    contents : {
+    content : {
       type: String,
     },
     createAt : {
@@ -15,12 +15,9 @@
 
 <template>
   <div class="card">
-    <div class="card-header">
-      Featured
-    </div>
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
-      <p class="card-text">{{contents}}</p>
+      <p class="card-text">{{content}}</p>
       <p class="text-muted">{{createAt}}</p>
     </div>
   </div>

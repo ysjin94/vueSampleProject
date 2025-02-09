@@ -6,8 +6,26 @@ import { useRouter } from 'vue-router'
 import PostDetailView from '@/views/posts/PostDetailView.vue'
 
 const posts = ref([]);
-const fetchPosts = () => {
-  posts.value = getPosts();
+const fetchPosts = async () => {
+//  posts.value = getPosts();
+
+    try{
+//  {data} => response.data 동일하다
+      const { data } = await getPosts();
+//   console.dir(data);
+      posts.value = data;
+    }catch(error){
+      console.error(error);
+    }
+
+
+  // getPosts().then(response => {
+  //   console.log(response.data);
+  //   posts.value = response.data;
+  // }).catch(error => {
+  //   console.log(error);
+  // })
+
 }
 fetchPosts();
 
