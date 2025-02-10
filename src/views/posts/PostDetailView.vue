@@ -9,7 +9,7 @@ const router = useRouter();
 //const id = route.params.id;
 
 const props = defineProps({
-  id: Number
+  id: String
 });
 
 const goListPage = () => {
@@ -36,11 +36,11 @@ const fetchPost = async () =>{
   }
 }
 
-const setPost = (title, content, creatAt) =>{
+const setPost = (title, content, createAt) =>{
   post.value = {
     title:title,
     content: content,
-    creatAt: creatAt,
+    createAt: createAt,
   }
 }
 fetchPost();
@@ -63,7 +63,7 @@ const remove = async () =>{
   <div>
     <h2>{{ post.title }}</h2>
     <p>{{post.content}}</p>
-    <p class="text-muted">2025-01-01</p>
+    <p class="text-muted">{{ post.createAt }}</p>
     <hr class="my-4"/>
     <div class="row g-2">
       <div class="col-auto">
